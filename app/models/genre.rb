@@ -8,7 +8,7 @@ class Genre < ActiveRecord::Base
   end
 
   def self.find_by_slug(slug)
-    name = slug.split("-").join(" ")
-    self.all.find(name: name)
+    name = slug.split("-").map {|ele| ele[0].upcase + ele[1..-1] }.join(" ")
+    self.all.find_by(name: name)
   end
 end

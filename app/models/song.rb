@@ -8,7 +8,7 @@ class Song < ActiveRecord::Base
   end
 
   def self.find_by_slug(slug)
-    new = slug.split("-").join(" ").downcase
-    Song.all.find(name: new)
+    name = slug.split("-").map {|ele| ele[0].upcase + ele[1..-1] }.join(" ")
+    Song.all.find_by(name: name)
   end
 end
