@@ -3,6 +3,7 @@ class Song < ActiveRecord::Base
   has_many :song_genres
   has_many :genres, through: :song_genres
 
-  def find_by_slug
+  def slug
+    self.name.split(" ").join("_")
   end
 end
