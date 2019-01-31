@@ -1,0 +1,20 @@
+<form action="/songs" method="POST">
+
+  <label>Choose an existing Artist</label>
+  <br>
+  <%Artist.all.each do |artist|%>
+<input type="radio" name="song[artist_id]" id="artists" value="<%=artist.id%>"><%=artist.name%></input>
+<br>
+  <%end%>
+<br>
+
+
+<input type="text" name="song[name]" id="song_name">Name</input>
+<br>
+
+
+<input type="text" name="artist[name]" id="artist_name">Artist</input>
+<br>
+
+<input type="submit" value="Submit with new Artist" id="Create">
+</form>
