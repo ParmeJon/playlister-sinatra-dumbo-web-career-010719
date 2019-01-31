@@ -1,3 +1,4 @@
+require 'pry'
 class SongsController < ApplicationController
 
   get '/songs' do
@@ -5,21 +6,30 @@ class SongsController < ApplicationController
     erb :'/songs/index'
   end
 
+  get '/songs/new' do
+    erb :'/songs/new'
+  end
+
   get '/songs/:slug' do
     @song = Song.find_by_slug(params[:slug])
     erb :'/songs/show'
   end
 
-  get '/songs/new' do
-    erb :'/songs/new'
+  post '/songs' do
+    if !params[:song][:artist_id].empty?
+      new = Song.create(params[:song])
+    elsif !params[:artist][:name].empty?
+      artist = Artist.create(params[:artist])
+      new = Song.create(name: params[:song][:name], artist_id: artist.id)
+    end
+    redirect to ("/songs/#{new.slug}")
   end
 
-  post '/songs' do
-    if !params[:artist][:name].empty?
-      artist = Artist.create(params[:artist])
-    end
-    new = Song.create(name: params[:song][:name], artist_id: artist.id)
-    redirect to ("/songs/#{new.slug}")
+  get '/songs/:slug/edit' do
+    @genres = Genre.all
+    # binding.pry
+    @song = Song.find_by_slug(params[:slug])
+    erb :'/songs/edit'
   end
 
 end
