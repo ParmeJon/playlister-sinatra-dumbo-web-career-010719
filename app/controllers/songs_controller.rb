@@ -10,4 +10,16 @@ class SongsController < ApplicationController
     erb :'/songs/show'
   end
 
+  get '/songs/new' do
+    erb :'/songs/new'
+  end
+
+  post '/songs' do
+    if !params[:artist][:name].empty?
+      artist = Artist.create(params[:artist])
+    end
+    new = Song.create(name: params[:song][:name], artist_id: artist.id)
+    redirect to ("/songs/#{new.slug}")
+  end
+
 end
