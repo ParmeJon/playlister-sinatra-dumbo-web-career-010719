@@ -13,7 +13,7 @@
  <label>Change your genre</label>
 
  <%@genres.each do |genre|%>
-<input type="checkbox" name="genre_ids[]" id="genre" value="<%= genre.id %>" <%='checked' if @song.genres.include?(genre.name) %>><%=genre.name%></input>
+<input type="checkbox" name="genre_ids[]" id="genre" value="<%= genre.id %>" <%='checked' if @song.genre_ids.include?(genre.id) %>><%=genre.name%></input>
 <%end%>
 
 <br>
